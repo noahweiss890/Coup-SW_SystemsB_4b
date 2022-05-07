@@ -1,7 +1,7 @@
 #include "Assassin.hpp"
 
 const int coup_price = 7;
-const int assassinate_price = 7;
+const int assassinate_price = 3;
 
 void Assassin::coup(Player &p) {
     if(this->game->alone()) {
