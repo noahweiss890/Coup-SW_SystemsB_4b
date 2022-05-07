@@ -11,7 +11,7 @@ void Captain::steal(Player &from) {
     if(from.get_status() != 0) {
         throw invalid_argument("illegal steal!");
     }
-    int steal_amount;
+    int steal_amount = 0;
     if(from.coins() >=2) {
         steal_amount = 2;
     }
@@ -29,7 +29,7 @@ void Captain::steal(Player &from) {
 }
 
 void Captain::block(Player &p) {
-    if(p.get_status() != 0 || this->game->turn() == p.get_name() || p.role() != "Captain" || p.get_last_action().substr(0, 5) != "STEAL") {
+    if(p.get_status() != 0 || this->game->turn() == p.get_name() || p.role() != "Captain" || p.get_last_action().substr(0, strlen("STEAL")) != "STEAL") {
         throw invalid_argument("invalid block!");
     }
     p.set_money(-stoi(p.get_last_action().substr(p.get_last_action().size()-1, 1)));
