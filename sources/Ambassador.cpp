@@ -2,6 +2,8 @@
 
 using namespace coup;
 
+const int steal_size = 5;
+
 void Ambassador::transfer(Player &from, Player &to) {
     if(this->game->alone()) {
         throw invalid_argument("game only has 1 player");
@@ -20,7 +22,7 @@ void Ambassador::transfer(Player &from, Player &to) {
 }
 
 void Ambassador::block(Player &p) {
-    if(p.get_status() != 0 || this->game->turn() == p.get_name() || p.role() != "Captain" || p.get_last_action().substr(0, strlen("STEAL")) != "STEAL") {
+    if(p.get_status() != 0 || this->game->turn() == p.get_name() || p.role() != "Captain" || p.get_last_action().substr(0, steal_size) != "STEAL") {
         throw invalid_argument("invalid block!");
     }
     p.set_money(-stoi(p.get_last_action().substr(p.get_last_action().size()-1, 1)));

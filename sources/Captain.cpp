@@ -1,5 +1,7 @@
 #include "Captain.hpp"
 
+const int steal_size = 5;
+
 void Captain::steal(Player &from) {
     if(this->game->alone()) {
         throw invalid_argument("game only has 1 player");
@@ -29,7 +31,7 @@ void Captain::steal(Player &from) {
 }
 
 void Captain::block(Player &p) {
-    if(p.get_status() != 0 || this->game->turn() == p.get_name() || p.role() != "Captain" || p.get_last_action().substr(0, strlen("STEAL")) != "STEAL") {
+    if(p.get_status() != 0 || this->game->turn() == p.get_name() || p.role() != "Captain" || p.get_last_action().substr(0, steal_size) != "STEAL") {
         throw invalid_argument("invalid block!");
     }
     p.set_money(-stoi(p.get_last_action().substr(p.get_last_action().size()-1, 1)));
